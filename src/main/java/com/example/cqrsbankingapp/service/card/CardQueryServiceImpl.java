@@ -19,4 +19,9 @@ public class CardQueryServiceImpl implements CardQueryService {
         return repository.findById(id)
                 .orElseThrow(ResourceNotFoundException::new);
     }
+
+    @Override
+    public boolean existsByNumberAndDate(String number, String date) {
+        return repository.existsByNumberAndDate(number, date);
+    }
 }

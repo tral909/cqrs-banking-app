@@ -1,6 +1,8 @@
 package com.example.cqrsbankingapp.service.card;
 
 import com.example.cqrsbankingapp.domain.model.Card;
+import com.example.cqrsbankingapp.domain.model.Client;
+import com.example.cqrsbankingapp.service.client.ClientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,7 @@ public class CardServiceImpl implements CardService {
 
     private final CardQueryService cardQueryService;
     private final CardCommandService cardCommandService;
+    private final ClientService clientService;
 
     @Override
     public void create(Card object) {
@@ -19,8 +22,19 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
+    public void createByClientId(UUID clientId) {
+        Client client = clientService.getById(clientId);
+        Card card = new Card(client.getAccount());
+        cardCommandService.create(card);
+    }
+
+    @Override
     public Card getById(UUID id) {
         return cardQueryService.getById(id);
     }
 
+    @Override
+    public boolean existsByNumberAndDate(String number, String date) {
+        return cardQueryService.existsByNumberAndDate(number, date);
+    }
 }
