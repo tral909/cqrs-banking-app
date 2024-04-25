@@ -22,7 +22,7 @@ public class AuthController {
     private final AuthService authService;
     private final ClientMapper clientMapper;
 
-    @PostMapping("/resister")
+    @PostMapping("/register")
     public void register(@RequestBody @Validated(OnCreate.class) final ClientDto dto) {
         Client client = clientMapper.fromDto(dto);
         authService.register(client);
