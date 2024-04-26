@@ -79,5 +79,6 @@ services:
     volumes:
       - debezium-data:/debezium/data
       - ./conf/:/on-startup/
+    # to avoid GC thread error start application on my docker desktop version
     security_opt:
       - seccomp:unconfined
