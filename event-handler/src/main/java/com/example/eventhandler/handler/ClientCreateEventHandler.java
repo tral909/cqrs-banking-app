@@ -1,8 +1,8 @@
 package com.example.eventhandler.handler;
 
-import com.example.common.domain.model.Account;
-import com.example.common.event.AccountCreateEvent;
-import com.example.eventhandler.service.account.AccountService;
+import com.example.common.domain.model.Client;
+import com.example.common.event.ClientCreateEvent;
+import com.example.eventhandler.service.client.ClientService;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
@@ -10,25 +10,25 @@ import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-@Component("ACCOUNT_CREATE")
+@Component("CLIENT_CREATE")
 @RequiredArgsConstructor
-public class AccountCreateEventHandler implements EventHandler {
+public class ClientCreateEventHandler implements EventHandler {
 
-    private final AccountService accountService;
+    private final ClientService clientService;
     private final Gson gson;
 
     @Override
     @Transactional
     public void handle(JsonObject object, Acknowledgment acknowledgment) {
-        AccountCreateEvent event = gson.fromJson(
+        ClientCreateEvent event = gson.fromJson(
                 object,
-                AccountCreateEvent.class
+                ClientCreateEvent.class
         );
-        Account account = gson.fromJson(
+        Client client = gson.fromJson(
                 (String) event.getPayload(),
-                Account.class
+                Client.class
         );
-        accountService.create(account);
+        clientService.create(client);
         acknowledgment.acknowledge();
     }
 }

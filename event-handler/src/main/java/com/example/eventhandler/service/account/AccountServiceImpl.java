@@ -1,4 +1,4 @@
-package com.example.eventhandler;
+package com.example.eventhandler.service.account;
 
 import com.example.common.domain.model.Account;
 import com.example.common.repository.AccountRepository;

@@ -1,8 +1,8 @@
 package com.example.eventhandler.handler;
 
-import com.example.common.domain.model.Account;
-import com.example.common.event.AccountCreateEvent;
-import com.example.eventhandler.service.account.AccountService;
+import com.example.common.domain.model.Card;
+import com.example.common.event.CardCreateEvent;
+import com.example.eventhandler.service.card.CardService;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
@@ -10,25 +10,25 @@ import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-@Component("ACCOUNT_CREATE")
+@Component("CARD_CREATE")
 @RequiredArgsConstructor
-public class AccountCreateEventHandler implements EventHandler {
+public class CardCreateEventHandler implements EventHandler {
 
-    private final AccountService accountService;
+    private final CardService cardService;
     private final Gson gson;
 
     @Override
     @Transactional
     public void handle(JsonObject object, Acknowledgment acknowledgment) {
-        AccountCreateEvent event = gson.fromJson(
+        CardCreateEvent event = gson.fromJson(
                 object,
-                AccountCreateEvent.class
+                CardCreateEvent.class
         );
-        Account account = gson.fromJson(
+        Card card = gson.fromJson(
                 (String) event.getPayload(),
-                Account.class
+                Card.class
         );
-        accountService.create(account);
+        cardService.create(card);
         acknowledgment.acknowledge();
     }
 }
