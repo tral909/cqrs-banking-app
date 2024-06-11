@@ -1,4 +1,4 @@
-package com.example.core.service.client;
+package com.example.common.service.client;
 
 import com.example.common.domain.exception.ResourceNotFoundException;
 import com.example.common.domain.model.Client;
@@ -28,6 +28,12 @@ public class ClientQueryServiceImpl implements ClientQueryService {
     @Override
     public Client getByUsername(String username) {
         return repository.findByUsername(username)
+                .orElseThrow(ResourceNotFoundException::new);
+    }
+
+    @Override
+    public Client getByAccount(UUID accountId) {
+        return repository.findByAccountId(accountId)
                 .orElseThrow(ResourceNotFoundException::new);
     }
 }

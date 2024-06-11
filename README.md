@@ -1,3 +1,9 @@
+To launch application use docker-compose:
+
+`docker-compose up -d`
+
+it will start 6 containers.
+
 To test CDC
 
 Register new user:
@@ -22,4 +28,5 @@ execute: `kafka-console-consumer --bootstrap-server localhost:9092 --topic event
 
 It is events.json in our project - ClientCreateEvent in postgres banking event table
 
+https://github.com/SpringBootCourses/cqrs-banking-app/blob/main/README.md
 
